@@ -1,0 +1,394 @@
+<div id="warsep-app">
+<style>
+#warsep-app{
+ --orange:#ff7626;--yellow:#ffd166;--dark:#171717;
+ --cream:#fff8ed;--card:#ffffff;--muted:#777;
+ font-family:Arial,Helvetica,sans-serif;color:var(--dark);
+ background:var(--cream);line-height:1.5;border-radius:16px;
+ overflow:hidden;max-width:1100px;margin:auto;
+}
+#warsep-app *{box-sizing:border-box}
+#warsep-app button,#warsep-app input,#warsep-app select,
+#warsep-app textarea{font:inherit}
+#warsep-app button{cursor:pointer}
+#warsep-app .topbar{background:var(--dark);color:white;padding:14px 18px;
+ display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#warsep-app .brand{font-size:25px;font-weight:1000;letter-spacing:2px;color:var(--yellow)}
+#warsep-app .brand span{color:var(--orange)}
+#warsep-app .nav{display:flex;gap:7px;flex-wrap:wrap}
+#warsep-app .nav button{background:#303030;color:white;border:0;border-radius:9px;padding:9px 12px}
+#warsep-app .nav button.active,#warsep-app .primary{background:var(--orange);color:#fff}
+#warsep-app .hero{padding:35px 22px;background:linear-gradient(120deg,#211b16,#563019);
+ color:white;position:relative;overflow:hidden}
+#warsep-app .hero small{color:var(--yellow);font-weight:bold;letter-spacing:2px}
+#warsep-app .hero h1{font-size:clamp(34px,7vw,60px);line-height:1.06;margin:12px 0}
+#warsep-app .hero h1 span{color:var(--yellow)}
+#warsep-app .hero p{max-width:520px;color:#eee}
+#warsep-app .hero .hero-btn{background:var(--yellow);color:#25170b;border:0;
+ padding:12px 18px;border-radius:10px;font-weight:bold}
+#warsep-app .features{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;
+ padding:15px;background:#fff0d9}
+#warsep-app .feature{background:white;border-radius:10px;padding:12px;text-align:center;font-size:13px}
+#warsep-app .feature b{display:block;font-size:15px}
+#warsep-app .section{padding:22px 16px}
+#warsep-app .section-title{font-size:25px;margin:0 0 5px;font-weight:900}
+#warsep-app .muted{color:var(--muted);font-size:13px}
+#warsep-app .toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:17px 0}
+#warsep-app .toolbar input,#warsep-app .toolbar select{min-width:0;flex:1;
+ padding:11px;border:1px solid #ddd;border-radius:10px;background:white}
+#warsep-app .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+#warsep-app .filters button{border:1px solid #ddd;background:white;border-radius:20px;
+ padding:8px 12px;font-size:13px}
+#warsep-app .filters button.active{background:var(--dark);color:white;border-color:var(--dark)}
+#warsep-app .products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#warsep-app .product{background:white;border:1px solid #eee;border-radius:14px;overflow:hidden;
+ box-shadow:0 3px 12px #00000008;display:flex;flex-direction:column;min-width:0}
+#warsep-app .foodpic{height:115px;display:grid;place-items:center;font-size:62px;
+ background:linear-gradient(145deg,#fff1d9,#ffdfb1)}
+#warsep-app .pbody{padding:11px;display:flex;flex-direction:column;flex:1}
+#warsep-app .pbody h3{font-size:15px;margin:0 0 5px}
+#warsep-app .price{font-size:16px;font-weight:900;color:#d9550b;margin:3px 0 10px}
+#warsep-app .pbody button{margin-top:auto;width:100%;border:0;border-radius:9px;
+ padding:10px 5px;font-size:13px;font-weight:bold}
+#warsep-app .primary{border:0;border-radius:10px;padding:12px 15px;font-weight:bold}
+#warsep-app .secondary{background:white;border:1px solid #ddd;border-radius:10px;padding:10px}
+#warsep-app .panel{background:white;border:1px solid #eee;border-radius:14px;
+ padding:16px;margin-top:14px}
+#warsep-app .page{display:none}
+#warsep-app .page.active{display:block}
+#warsep-app .cartrow{display:grid;grid-template-columns:1fr auto;gap:10px;
+ border-bottom:1px solid #eee;padding:13px 0}
+#warsep-app .qty{display:flex;align-items:center;gap:9px;margin-top:8px}
+#warsep-app .qty button{width:31px;height:31px;background:#fff0df;border:0;border-radius:8px}
+#warsep-app .remove{border:0;background:none;color:#c33;font-size:12px;padding:6px 0}
+#warsep-app .totalrow{display:flex;justify-content:space-between;gap:10px;padding:5px 0}
+#warsep-app .grand{font-size:20px;font-weight:900;border-top:1px solid #ddd;
+ margin-top:8px;padding-top:12px}
+#warsep-app .field{margin:12px 0}
+#warsep-app .field label{display:block;font-weight:bold;font-size:13px;margin-bottom:5px}
+#warsep-app .field input,#warsep-app .field select,#warsep-app .field textarea{
+ width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;background:#fff}
+#warsep-app .field textarea{min-height:78px;resize:vertical}
+#warsep-app .delivery-note{padding:12px;border-radius:10px;background:#fff2dc;font-size:13px}
+#warsep-app .wide{width:100%;margin-top:10px}
+#warsep-app .empty{text-align:center;padding:25px 10px;color:#777}
+#warsep-app .footer{background:#171717;color:#ddd;padding:22px 17px;font-size:13px}
+#warsep-app .footer strong{color:var(--yellow)}
+#warsep-app .toast{background:#e3f8e9;color:#176b36;padding:10px;border-radius:9px;
+ margin:10px 0;display:none;font-size:13px}
+@media(max-width:600px){
+ #warsep-app .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ #warsep-app .foodpic{height:95px;font-size:49px}
+ #warsep-app .pbody{padding:9px}
+ #warsep-app .features{gap:5px;padding:10px}
+ #warsep-app .feature{padding:9px 4px;font-size:11px}
+ #warsep-app .feature b{font-size:12px}
+ #warsep-app .hero{padding:28px 17px}
+}
+</style>
+
+<header class="topbar">
+ <div class="brand">WAR<span>SEP</span> 🍜</div>
+ <nav class="nav">
+  <button class="active" data-page="catalog">Menu</button>
+  <button data-page="cart">🛒 Keranjang <b id="w-count">0</b></button>
+  <button data-page="checkout">Checkout</button>
+ </nav>
+</header>
+
+<section class="hero">
+ <small>JAJAN ENAK • HARGA BERSAHABAT</small>
+ <h1>LAPER? <span>WARSEP</span><br>JAWABANNYA!</h1>
+ <p>Mau camilan, mie favorit, atau minuman segar? Pilih menu kesukaanmu, masukkan keranjang, dan pesan langsung melalui WhatsApp.</p>
+ <button class="hero-btn" onclick="document.querySelector('#warsep-app [data-page=catalog]').click()">🍟 Lihat Menu</button>
+</section>
+
+<div class="features">
+ <div class="feature">🍜<b>Banyak Pilihan</b>Menu beragam</div>
+ <div class="feature">💰<b>Harga Bersahabat</b>Ramah kantong</div>
+ <div class="feature">🛵<b>Bisa Diantar</b>Atau ambil sendiri</div>
+</div>
+
+<div class="section page active" id="w-catalog">
+ <h2 class="section-title">Menu Favorit 🔥</h2>
+ <div class="muted">Pilih makanan dan minuman, lalu tekan tombol tambah.</div>
+ <div class="toolbar">
+  <input id="w-search" placeholder="🔎 Cari menu..." aria-label="Cari menu">
+  <select id="w-sort" aria-label="Urutkan harga">
+   <option value="default">Urutkan: Rekomendasi</option>
+   <option value="low">Harga termurah</option>
+   <option value="high">Harga termahal</option>
+  </select>
+ </div>
+ <div class="filters" id="w-filters">
+  <button class="active" data-cat="Semua">Semua</button>
+  <button data-cat="Makanan">🍟 Makanan</button>
+  <button data-cat="Mie">🍜 Menu Mie</button>
+  <button data-cat="Minuman">🥤 Minuman</button>
+  <button data-cat="Kopi">☕ Kopi</button>
+ </div>
+ <div class="products" id="w-products"></div>
+ <div class="panel">
+  <b>📍 Lokasi WARSEP</b>
+  <p class="muted">Jl. Kadu Pasirandu, RT 05 RW 02</p>
+  <button class="secondary" onclick="document.querySelector('#warsep-app [data-page=checkout]').click()">Isi Data Pemesanan →</button>
+ </div>
+</div>
+
+<div class="section page" id="w-cart">
+ <h2 class="section-title">🛒 Keranjang Saya</h2>
+ <p class="muted">Atur jumlah pesanan sebelum checkout.</p>
+ <div class="panel" id="w-cart-items"></div>
+ <div class="panel" id="w-cart-summary"></div>
+ <button class="primary wide" onclick="document.querySelector('#warsep-app [data-page=checkout]').click()">Lanjut ke Checkout →</button>
+ <button class="secondary wide" onclick="document.querySelector('#warsep-app [data-page=catalog]').click()">+ Tambah Menu</button>
+</div>
+
+<div class="section page" id="w-checkout">
+ <h2 class="section-title">🧾 Data Pemesanan</h2>
+ <p class="muted">Lengkapi data agar pesanan bisa dikirim ke WhatsApp WARSEP.</p>
+ <div class="panel">
+  <div id="w-check-items" class="muted">Keranjang masih kosong.</div>
+  <div id="w-check-summary"></div>
+ </div>
+ <form id="w-order-form" class="panel">
+  <div class="field">
+   <label for="w-name">Nama lengkap *</label>
+   <input id="w-name" name="name" placeholder="Masukkan nama kamu" required maxlength="80">
+  </div>
+  <div class="field">
+   <label for="w-phone">Nomor HP / WhatsApp pemesan *</label>
+   <input id="w-phone" name="phone" type="tel" placeholder="Contoh: 08xxxxxxxxxx" required maxlength="20">
+  </div>
+  <div class="field">
+   <label for="w-method">Metode penerimaan *</label>
+   <select id="w-method" name="method" required>
+    <option value="antar">🛵 Diantar ke alamat</option>
+    <option value="ambil">🏃 Ambil sendiri</option>
+   </select>
+  </div>
+  <div id="w-delivery-fields">
+   <div class="field">
+    <label for="w-zone">Zona ongkir *</label>
+    <select id="w-zone" name="zone">
+     <option value="5000">Dekat — Rp5.000</option>
+     <option value="10000">Sedang — Rp10.000</option>
+     <option value="15000">Jauh — Rp15.000</option>
+    </select>
+   </div>
+   <div class="field">
+    <label for="w-address">Alamat lengkap *</label>
+    <textarea id="w-address" name="address" placeholder="Nama jalan, nomor rumah, RT/RW, patokan lokasi"></textarea>
+   </div>
+   <div class="delivery-note">📍 Lokasi penjual: Jl. Kadu Pasirandu, RT 05 RW 02. Pilih zona sesuai jarak; ongkir di website merupakan perkiraan.</div>
+  </div>
+  <div class="field">
+   <label for="w-note">Catatan pesanan</label>
+   <textarea id="w-note" name="note" placeholder="Contoh: tidak pedas, sambal dipisah, atau catatan lainnya"></textarea>
+  </div>
+  <div class="toast" id="w-toast"></div>
+  <button class="primary wide" type="submit">📲 Pesan Sekarang via WhatsApp</button>
+  <p class="muted">WhatsApp akan terbuka dengan ringkasan pesanan. Periksa kembali lalu tekan Kirim di WhatsApp untuk mengirim pesanan.</p>
+ </form>
+</div>
+
+<footer class="footer">
+ <div class="brand">WAR<span>SEP</span> 🍜</div>
+ <p>Makan enak, harga bersahabat!</p>
+ <p>📍 <strong>Alamat:</strong> Jl. Kadu Pasirandu RT 05 RW 02</p>
+ <p>📱 <strong>WhatsApp pemesanan:</strong> 088740195950</p>
+ <p>© 2026 WARSEP — Semua rasa, satu tempat.</p>
+</footer>
+
+<script>
+(function(){
+ const root=document.getElementById('warsep-app');
+ if(root.dataset.ready)return;
+ root.dataset.ready='1';
+
+ // Nomor tujuan WhatsApp WARSEP
+ const WA_NUMBER='6288740195950';
+
+ // Harga dalam rupiah; silakan ubah sesuai harga jual sebenarnya.
+ const menu=[
+  {id:1,name:'Kentang Goreng',cat:'Makanan',price:10000,emoji:'🍟',desc:'Gurih dan renyah'},
+  {id:2,name:'Cireng',cat:'Makanan',price:8000,emoji:'🥟',desc:'Camilan kenyal gurih'},
+  {id:3,name:'Mie Kuah',cat:'Mie',price:10000,emoji:'🍜',desc:'Hangat dan nikmat'},
+  {id:4,name:'Mie Goreng',cat:'Mie',price:10000,emoji:'🍝',desc:'Favorit segala suasana'},
+  {id:5,name:'Mie Nyemek',cat:'Mie',price:12000,emoji:'🍜',desc:'Kuah sedikit, rasa mantap'},
+  {id:6,name:'Sosis Goreng',cat:'Makanan',price:8000,emoji:'🌭',desc:'Cocok untuk camilan'},
+  {id:7,name:'Americano',cat:'Kopi',price:10000,emoji:'☕',desc:'Kopi hitam sederhana'},
+  {id:8,name:'Coffee Susu',cat:'Kopi',price:12000,emoji:'🥤',desc:'Kopi dengan susu'},
+  {id:9,name:'Es Teh Manis',cat:'Minuman',price:5000,emoji:'🧋',desc:'Segar untuk menemani makan'},
+  {id:10,name:'Soda Gembira',cat:'Minuman',price:10000,emoji:'🥤',desc:'Minuman soda manis segar'},
+  {id:11,name:'Pop Ice',cat:'Minuman',price:6000,emoji:'🍧',desc:'Minuman dingin aneka rasa'},
+  {id:12,name:'Kopi Hitam',cat:'Kopi',price:5000,emoji:'☕',desc:'Kopi klasik'},
+  {id:13,name:'Air Putih',cat:'Minuman',price:3000,emoji:'💧',desc:'Minuman sederhana'}
+ ];
+
+ const rupiah=n=>'Rp'+Math.round(n).toLocaleString('id-ID');
+ let cart={};
+ let category='Semua';
+
+ function totalItems(){return Object.values(cart).reduce((s,q)=>s+q,0)}
+ function subtotal(){return menu.reduce((s,p)=>s+p.price*(cart[p.id]||0),0)}
+ function shipping(){
+  return document.getElementById('w-method').value==='ambil'
+   ?0:Number(document.getElementById('w-zone').value);
+ }
+ function grand(){return subtotal()+shipping()}
+
+ function renderMenu(){
+  const search=document.getElementById('w-search').value.trim().toLowerCase();
+  const sort=document.getElementById('w-sort').value;
+  let list=menu.filter(p=>(category==='Semua'||p.cat===category)&&
+   (p.name+' '+p.desc+' '+p.cat).toLowerCase().includes(search));
+  if(sort==='low')list.sort((a,b)=>a.price-b.price);
+  if(sort==='high')list.sort((a,b)=>b.price-a.price);
+  const el=document.getElementById('w-products');
+  if(!list.length){el.innerHTML='<div class="empty" style="grid-column:1/-1">Menu tidak ditemukan.</div>';return}
+  el.innerHTML=list.map(p=>`
+   <article class="product">
+    <div class="foodpic">${p.emoji}</div>
+    <div class="pbody">
+     <h3>${p.name}</h3>
+     <div class="muted">${p.desc}</div>
+     <div class="price">${rupiah(p.price)}</div>
+     <button class="primary" data-add="${p.id}">＋ Tambah</button>
+    </div>
+   </article>`).join('');
+ }
+
+ function summaryHTML(){
+  return `<div class="totalrow"><span>Jumlah item</span><b>${totalItems()}</b></div>
+  <div class="totalrow"><span>Subtotal</span><b>${rupiah(subtotal())}</b></div>
+  <div class="totalrow"><span>Ongkir</span><b>${rupiah(shipping())}</b></div>
+  <div class="totalrow grand"><span>Total pembayaran</span><span>${rupiah(grand())}</span></div>`;
+ }
+
+ function renderCart(){
+  document.getElementById('w-count').textContent=totalItems();
+  const rows=menu.filter(p=>cart[p.id]);
+  document.getElementById('w-cart-items').innerHTML=rows.length?rows.map(p=>`
+   <div class="cartrow">
+    <div><b>${p.emoji} ${p.name}</b><div class="muted">${rupiah(p.price)} / item</div>
+     <button class="remove" data-remove="${p.id}">Hapus item</button></div>
+    <div style="text-align:right"><b>${rupiah(p.price*cart[p.id])}</b>
+     <div class="qty">
+      <button data-dec="${p.id}" aria-label="Kurangi ${p.name}">−</button>
+      <b>${cart[p.id]}</b>
+      <button data-inc="${p.id}" aria-label="Tambah ${p.name}">＋</button>
+     </div>
+    </div>
+   </div>`).join(''):'<div class="empty">🛒 Keranjang kosong.<br>Silakan pilih menu favoritmu.</div>';
+  document.getElementById('w-cart-summary').innerHTML=summaryHTML();
+  document.getElementById('w-check-items').innerHTML=rows.length?
+   rows.map(p=>`${p.emoji} ${p.name} × ${cart[p.id]} — ${rupiah(p.price*cart[p.id])}`).join('<br>'):
+   'Keranjang masih kosong. Tambahkan menu terlebih dahulu.';
+  document.getElementById('w-check-summary').innerHTML=summaryHTML();
+ }
+
+ function update(){
+  renderCart();
+  document.getElementById('w-delivery-fields').style.display=
+   document.getElementById('w-method').value==='antar'?'block':'none';
+  document.getElementById('w-address').required=
+   document.getElementById('w-method').value==='antar';
+  document.getElementById('w-zone').disabled=
+   document.getElementById('w-method').value==='ambil';
+ }
+
+ function showPage(page){
+  root.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('w-'+page).classList.add('active');
+  root.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+  if(page==='cart'||page==='checkout')update();
+  if(page==='catalog')renderMenu();
+ }
+
+ root.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+ document.getElementById('w-search').addEventListener('input',renderMenu);
+ document.getElementById('w-sort').addEventListener('change',renderMenu);
+ root.querySelector('#w-filters').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-cat]');if(!b)return;
+  category=b.dataset.cat;
+  root.querySelectorAll('#w-filters button').forEach(x=>x.classList.toggle('active',x===b));
+  renderMenu();
+ });
+
+ root.querySelector('#w-products').addEventListener('click',e=>{
+  const b=e.target.closest('[data-add]');if(!b)return;
+  const id=Number(b.dataset.add);
+  cart[id]=(cart[id]||0)+1;
+  update();
+  const old=b.textContent;b.textContent='✓ Ditambahkan';
+  setTimeout(()=>{if(b.isConnected)b.textContent=old},700);
+ });
+
+ root.querySelector('#w-cart-items').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const id=Number(b.dataset.inc||b.dataset.dec||b.dataset.remove);
+  if(!id)return;
+  if(b.hasAttribute('data-remove'))delete cart[id];
+  else if(b.hasAttribute('data-inc'))cart[id]=(cart[id]||0)+1;
+  else if(b.hasAttribute('data-dec')){
+   cart[id]=(cart[id]||0)-1;if(cart[id]<=0)delete cart[id];
+  }
+  update();
+ });
+ document.getElementById('w-method').addEventListener('change',update);
+ document.getElementById('w-zone').addEventListener('change',update);
+
+ document.getElementById('w-order-form').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!totalItems()){
+   alert('Keranjang masih kosong. Silakan pilih makanan atau minuman terlebih dahulu.');
+   showPage('catalog');return;
+  }
+  const name=document.getElementById('w-name').value.trim();
+  const phone=document.getElementById('w-phone').value.trim();
+  const method=document.getElementById('w-method').value;
+  const address=document.getElementById('w-address').value.trim();
+  const note=document.getElementById('w-note').value.trim();
+  if(!name||!phone){alert('Mohon isi nama dan nomor HP.');return}
+  if(method==='antar'&&!address){alert('Mohon isi alamat lengkap untuk pengantaran.');return}
+  if(!/^[0-9+()\-\s]{8,20}$/.test(phone)){
+   alert('Mohon periksa format nomor HP kamu.');return;
+  }
+
+  const lines=menu.filter(p=>cart[p.id]).map(p=>
+   `- ${p.name} x ${cart[p.id]} = ${rupiah(p.price*cart[p.id])}`);
+  const orderNo='WS'+Date.now().toString().slice(-8);
+  const message=[
+   '*PESANAN BARU WARSEP*',
+   'No. pesanan: '+orderNo,
+   '',
+   '*Data pemesan*',
+   'Nama: '+name,
+   'No. HP: '+phone,
+   'Metode: '+(method==='antar'?'Diantar ke alamat':'Ambil sendiri'),
+   ...(method==='antar'?['Alamat: '+address,'Zona ongkir: '+document.getElementById('w-zone').selectedOptions[0].text]:[]),
+   '',
+   '*Daftar pesanan*',
+   ...lines,
+   '',
+   'Subtotal: '+rupiah(subtotal()),
+   'Ongkir: '+rupiah(shipping()),
+   '*TOTAL: '+rupiah(grand())+'*',
+   'Catatan: '+(note||'-'),
+   '',
+   'Mohon konfirmasi pesanan ini. Terima kasih!'
+  ].join('\n');
+
+  const url='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(message);
+  const toast=document.getElementById('w-toast');
+  toast.style.display='block';
+  toast.textContent='Membuka WhatsApp dengan rincian pesanan...';
+  const win=window.open(url,'_blank');
+  if(!win)window.location.href=url;
+ });
+
+ renderMenu();update();
+})();
+</script>
+</div>
